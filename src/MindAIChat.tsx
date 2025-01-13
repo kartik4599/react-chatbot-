@@ -98,9 +98,9 @@ const MindAIChat = () => {
 
   return (
     <Card className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden">
-      <CardHeader>
-        <CardTitle className="text-start text-3xl font-extrabold">
-          Mind AI
+      <CardHeader className="flex justify-center items-start">
+        <CardTitle className="text-4xl text-transparent bg-clip-text font-mono font-extrabold bg-gradient-to-r from-green-500 to-indigo-400">
+          Mind AI ...
         </CardTitle>
       </CardHeader>
       <div className="h-px bg-border" />

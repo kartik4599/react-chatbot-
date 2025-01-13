@@ -19,8 +19,8 @@ const promptOptions = [
 const Welcome = ({ submit }: { submit: (prompt: string) => Promise<void> }) => {
   return (
     <Card className="bg-white/10 backdrop-blur-md border-none">
-      <CardHeader className="space-y-4">
-        <CardTitle className="text-center text-4xl font-bold ">
+      <CardHeader className="flex flex-col justify-center items-center space-y-4">
+        <CardTitle className="text-4xl text-transparent bg-clip-text font-mono font-extrabold bg-gradient-to-r from-green-500 to-indigo-400">
           Mind AI
         </CardTitle>
         <CardDescription className="text-center text-xl /80">
