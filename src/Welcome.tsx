@@ -18,7 +18,7 @@ const promptOptions = [
 
 const Welcome = ({ submit }: { submit: (prompt: string) => Promise<void> }) => {
   return (
-    <Card className="bg-white/10 backdrop-blur-md border-none">
+    <Card className="border-none">
       <CardHeader className="flex flex-col justify-center items-center space-y-4">
         <CardTitle className="text-4xl text-transparent bg-clip-text font-mono font-extrabold bg-gradient-to-r from-green-500 to-indigo-400">
           Mind AI
@@ -33,7 +33,7 @@ const Welcome = ({ submit }: { submit: (prompt: string) => Promise<void> }) => {
             key={index}
             onClick={submit.bind(null, prompt)}
             variant="secondary"
-            className="h-auto shadow-xl rounded-xl border-2 py-4 px-6 text-left bg-white/20 hover:bg-white/30 transition-colors duration-200"
+            className="h-auto shadow-xl rounded-t-full rounded-bl-full border-2 py-4 px-6 text-left bg-white/20 hover:bg-white/30 transition-colors duration-200"
           >
             {prompt}
           </Button>
