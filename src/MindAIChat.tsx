@@ -93,7 +93,11 @@ const MindAIChat = () => {
   };
 
   useEffect(() => {
-    chatRef?.current?.scrollTo(0, chatRef?.current?.scrollHeight);
+    chatRef?.current?.scrollTo({
+      left: 0,
+      top: chatRef?.current?.scrollHeight,
+      behavior: "smooth",
+    });
   }, [isLoading, chatRef?.current]);
 
   return (
