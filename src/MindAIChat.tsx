@@ -101,7 +101,7 @@ const MindAIChat = () => {
   }, [isLoading, chatRef?.current]);
 
   return (
-    <Card className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden">
+    <Card className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-xl">
       <CardHeader className="flex justify-center items-start">
         <CardTitle className="text-4xl text-transparent bg-clip-text font-mono font-extrabold bg-gradient-to-r from-green-500 to-indigo-400">
           Mind AI ...
@@ -125,6 +125,7 @@ const MindAIChat = () => {
       <CardFooter>
         <form onSubmit={handleSubmit} className="flex w-full space-x-2">
           <Input
+            autoFocus
             value={value}
             onChange={({ target: { value } }) => setValue(value)}
             placeholder="Type your message..."
