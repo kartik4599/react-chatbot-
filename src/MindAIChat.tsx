@@ -13,6 +13,7 @@ import UserMessage from "./UserMessage";
 import Loading from "./Loading";
 import axios from "axios";
 import Welcome from "./Welcome";
+import AudioRecord from "./AudioRecord";
 
 const MindAIChat = () => {
   const [chats, setChats] = useState<
@@ -20,6 +21,8 @@ const MindAIChat = () => {
       id: string;
       role: string;
       content: string;
+      type: "text" | "audio";
+      file?: string;
     }[]
   >([]);
   const [value, setValue] = useState("");
@@ -31,18 +34,19 @@ const MindAIChat = () => {
     if (!value) return;
     try {
       setIsLoading(true);
-      const history = [...chats];
+      const history = chats.map(({ role, content }) => ({ role, content }));
       const prompt = value;
       setChats((previousChat) => [
         ...previousChat,
         {
-          id: chats.length.toString(),
+          id: previousChat.length.toString(),
           role: "user",
           content: value,
+          type: "text",
         },
       ]);
       setValue("");
-      const { data } = await axios.post("http://localhost:5000/chat", {
+      const { data } = await axios.post("http://localhost:4999/chat", {
         history,
         prompt,
       });
@@ -53,6 +57,7 @@ const MindAIChat = () => {
           id: (previousChat.length + 1).toString(),
           role: "model",
           content: data?.response,
+          type: "text",
         },
       ]);
     } catch (e) {
@@ -70,6 +75,7 @@ const MindAIChat = () => {
           id: chats.length.toString(),
           role: "user",
           content: prompt,
+          type: "text",
         },
       ]);
       const { data } = await axios.post("http://localhost:5000/chat", {
@@ -83,6 +89,44 @@ const MindAIChat = () => {
           id: chats.length.toString(),
           role: "model",
           content: data?.response,
+          type: "text",
+        },
+      ]);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const audioHandler = async (url: string, prompt: string) => {
+    try {
+      if (!prompt) return;
+      setIsLoading(true);
+      const history = chats.map(({ role, content }) => ({ role, content }));
+      setChats((previousChat) => [
+        ...previousChat,
+        {
+          id: previousChat.length.toString(),
+          role: "user",
+          content: prompt,
+          type: "audio",
+          file: url,
+        },
+      ]);
+
+      const { data } = await axios.post("http://localhost:4999/chat", {
+        history,
+        prompt,
+      });
+
+      setChats((previousChat) => [
+        ...previousChat,
+        {
+          id: (previousChat.length + 1).toString(),
+          role: "model",
+          content: data?.response,
+          type: "text",
         },
       ]);
     } catch (e) {
@@ -115,7 +159,12 @@ const MindAIChat = () => {
         {!chats.length && <Welcome submit={initSubmit} />}
         {chats.map((message) =>
           message.role === "user" ? (
-            <UserMessage content={message.content} key={message.id} />
+            <UserMessage
+              content={message.content}
+              key={message.id}
+              type={message.type}
+              file={message.file}
+            />
           ) : (
             <ModelMessage content={message.content} key={message.id} />
           )
@@ -134,6 +183,7 @@ const MindAIChat = () => {
           <Button type="submit" className="rounded-full">
             Send
           </Button>
+          <AudioRecord audioHandler={audioHandler} />
         </form>
       </CardFooter>
     </Card>
