@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "./components/ui/button";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./components/ui/card";
-import { Input } from "./components/ui/input";
-import ModelMessage from "./ModelMessage";
-import UserMessage from "./UserMessage";
-import Loading from "./Loading";
+} from "../ui/card";
+import { Input } from "../ui/input";
 import axios from "axios";
+import UserMessage from "./UserMessage";
+import ModelMessage from "./ModelMessage";
+import Loading from "./Loading";
 import Welcome from "./Welcome";
 import AudioRecord from "./AudioRecord";
 
@@ -78,7 +78,7 @@ const MindAIChat = () => {
           type: "text",
         },
       ]);
-      const { data } = await axios.post("http://localhost:5000/chat", {
+      const { data } = await axios.post("http://localhost:4999/chat", {
         history: [],
         prompt,
       });

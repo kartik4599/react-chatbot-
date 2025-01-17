@@ -1,15 +1,15 @@
 import { Mic, Mic2Icon, LoaderCircle } from "lucide-react";
-import { Button } from "./components/ui/button";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./components/ui/dialog";
+} from "../ui/dialog";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "./lib/utils";
 import axios from "axios";
+import { cn } from "@/lib/utils";
 
 function blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, _) => {
